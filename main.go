@@ -1,12 +1,24 @@
 package main
 
-import "github.com/gin-gonic/gin"
-import "net/http"
+import (
+	"fmt"
+	"github.com/MSunFlower1014/golang-API/pkg/setting"
+	"github.com/MSunFlower1014/golang-API/routers"
+	"log"
+	"net/http"
+)
 
 func main() {
-	e := gin.Default()
-	e.GET("ping", func(context *gin.Context) {
-		context.JSON(http.StatusOK, gin.H{"message": "pong pong"})
-	})
-	e.Run()
+	router := routers.InitRouter()
+
+	s := &http.Server{
+		Addr:              fmt.Sprintf(":%d", setting.HTTPPort),
+		Handler:           router,
+		ReadHeaderTimeout: setting.ReadTimeout,
+		WriteTimeout:      setting.WriteTimeout,
+		MaxHeaderBytes:    1 << 20,
+	}
+	if err := s.ListenAndServe(); err != nil {
+		log.Fatalf("server start error %v", err)
+	}
 }

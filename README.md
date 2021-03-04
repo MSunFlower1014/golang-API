@@ -14,9 +14,28 @@ go mod init github.com/MSunFlower1014/golang-API
 
 2. gin 依赖  
 ```shell script
+# 开源web框架
 go get -u github.com/gin-gonic/gin
 
 #go mod tidy 可以用来整理依赖
 go mod tidy
 ```
 
+3. go ini 依赖  
+```shell script
+go get -u github.com/go-ini/ini
+
+##在init方法中获取初始化配置信息
+
+```
+
+4. validation 依赖
+```shell script
+# 表单验证
+go get -u github.com/astaxie/beego/validation
+```
+
+5. gRpc 依赖
+```shell script
+go get -u google.golang.org/grpc
+```
