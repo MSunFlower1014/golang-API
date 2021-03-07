@@ -2,8 +2,10 @@ package main
 
 import (
 	"fmt"
+	cron2 "github.com/MSunFlower1014/golang-API/pkg/cron"
 	"github.com/MSunFlower1014/golang-API/pkg/setting"
 	"github.com/MSunFlower1014/golang-API/routers"
+	"github.com/robfig/cron"
 	"log"
 	"net/http"
 )
@@ -21,4 +23,10 @@ func main() {
 	if err := s.ListenAndServe(); err != nil {
 		log.Fatalf("server start error %v", err)
 	}
+
+	c := cron.New()
+
+	_ = c.AddFunc("* * * * * *", cron2.CronLogInfo)
+
+	c.Start()
 }

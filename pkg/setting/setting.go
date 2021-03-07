@@ -9,7 +9,7 @@ import (
 	"time"
 )
 
-const ConfigPath = "D:\\Study\\Golang\\golang-API\\config\\app.ini"
+const ConfigPath = "config/app.ini"
 
 var (
 	Cfg          *ini.File

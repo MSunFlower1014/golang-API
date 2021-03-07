@@ -1,0 +1,21 @@
+info:
+  contact: {}
+  license: {}
+paths:
+  /swagger:
+    get:
+      parameters:
+      - description: Name
+        in: query
+        name: name
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"msg": "pong"}'
+          schema:
+            type: string
+      summary: swagger测试
+swagger: "2.0"

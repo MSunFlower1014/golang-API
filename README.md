@@ -39,3 +39,20 @@ go get -u github.com/astaxie/beego/validation
 ```shell script
 go get -u google.golang.org/grpc
 ```
+
+6. swagger go
+```shell script
+go get -u github.com/swaggo/swag/cmd/swag@v1.6.5
+go get -u github.com/swaggo/gin-swagger@v1.2.0 
+go get -u github.com/swaggo/files
+go get -u github.com/alecthomas/template
+
+#初始化swagger
+swag init
+
+#路由器初始化需要导入生成doc地址
+_ "github.com/MSunFlower1014/golang-API/docs"
+
+#访问地址 
+# http://127.0.0.1:8080/swagger/index.html
+```
