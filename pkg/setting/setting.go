@@ -27,6 +27,7 @@ func init() {
 
 	if err != nil {
 		log.Fatalf("Fail to parse %v , error : %v", ConfigPath, err)
+		return
 	}
 
 	LoadBase()
