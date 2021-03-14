@@ -8,17 +8,16 @@ require (
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	//indirect 表示传递依赖，非直接依赖
 	github.com/gin-gonic/gin v1.6.3
-	github.com/go-delve/delve v1.6.0 // indirect
 	github.com/go-ini/ini v1.62.0
 	github.com/go-openapi/spec v0.20.3 // indirect
 	github.com/go-playground/validator/v10 v10.4.1 // indirect
 	github.com/golang/protobuf v1.4.3 // indirect
-	github.com/google/gops v0.3.17 // indirect
 	github.com/leodido/go-urn v1.2.1 // indirect
 	github.com/mailru/easyjson v0.7.7 // indirect
 	github.com/prometheus/common v0.10.0
 	github.com/robfig/cron v1.2.0
 	github.com/shiena/ansicolor v0.0.0-20200904210342-c7312218db18 // indirect
+	github.com/sirupsen/logrus v1.6.0 // indirect
 	github.com/smartystreets/goconvey v1.6.4 // indirect
 	github.com/swaggo/gin-swagger v1.2.0
 	github.com/swaggo/swag v1.7.0
@@ -29,6 +28,8 @@ require (
 	golang.org/x/tools v0.1.0 // indirect
 	google.golang.org/protobuf v1.25.0 // indirect
 	gopkg.in/ini.v1 v1.62.0 // indirect
+	gorm.io/driver/mysql v1.0.5
+	gorm.io/gorm v1.21.3
 )
 
 //用 replace 将其指定读取本地的模块路径，这样子就可以解决本地模块读取的问题。

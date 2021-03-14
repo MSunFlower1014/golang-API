@@ -2,6 +2,6 @@ package cron
 
 import "github.com/prometheus/common/log"
 
-func CronLogInfo() {
+func LogInfo() {
 	log.Info("cron log info ")
 }
