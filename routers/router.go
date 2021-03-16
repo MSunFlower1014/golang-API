@@ -16,7 +16,6 @@ func InitRouter() *gin.Engine {
 	e.Use(gin.Recovery())
 	e.Use(middleware.Log())
 	gin.SetMode(setting.RunMode)
-
 	e.GET("ping", func(context *gin.Context) {
 		context.JSON(http.StatusOK, gin.H{"msg": "pong"})
 	})

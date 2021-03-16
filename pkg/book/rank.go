@@ -3,69 +3,73 @@ package book
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
 	"github.com/MSunFlower1014/golang-API/pkg/dao"
+	"github.com/MSunFlower1014/golang-API/pkg/model"
+	"github.com/prometheus/common/log"
 	"io/ioutil"
 	"net/http"
-	"os"
 	"strconv"
 	"strings"
 	"time"
 )
 
-func saveBookRank(pageNum, month string) {
+func SaveBookRank(pageNum, yearmonth string) bool {
+	log.Infof("rank book api request pageNum : %v , yearmonth : %v \n", pageNum, yearmonth)
 	var buffer bytes.Buffer
 	buffer.WriteString("https://m.qidian.com/majax/rank/yuepiaolist?_csrfToken=yOYgIBQMyWxfSQIFmFcanGrSC19FscXSY9qzQXKe&gender=male&pageNum=")
 	buffer.WriteString(pageNum)
 	buffer.WriteString("&catId=-1&yearmonth=")
-	buffer.WriteString(month)
+	buffer.WriteString(yearmonth)
 	url := buffer.String()
 	buffer.Reset()
 	resp, err := http.Get(url)
 	if err != nil {
-		_, _ = fmt.Fprintf(os.Stderr, "fetch: %v\n", err)
-		return
+		log.Infof("fetch: %v\n", err)
+		return false
 	}
 
 	content, err := ioutil.ReadAll(resp.Body)
 	_ = resp.Body.Close()
 
 	if err != nil {
-		_, _ = fmt.Fprintf(os.Stderr, "fetch: %v\n", err)
-		return
+		log.Infof("io read all error: %v\n", err)
+		return false
 	}
-	//fmt.Printf("%s", content)
 	temp, err := zhToUnicode(content)
 	if err != nil {
-		_, _ = fmt.Fprintf(os.Stderr, "fetch: %v\n", err)
-		return
+		log.Infof("zhToUnicode error : %v\n", err)
+		return false
 	}
-	//fmt.Printf("%s", temp)
 	var data = make(map[string]interface{})
 	if err := json.Unmarshal(temp, &data); err != nil {
-		_, _ = fmt.Fprintf(os.Stderr, "fetch: %v\n", err)
-		return
+		log.Infof("Unmarshal error : %v\n", err)
+		return false
 	}
 
-	fmt.Printf("code : %v , msg : %s \n", data["code"], data["msg"])
+	log.Infof("rank book api response code : %v , msg : %s \n", data["code"], data["msg"])
 
 	mainData := data["data"].(map[string]interface{})
 
 	records := mainData["records"].([]interface{})
 	now := time.Now()
-	yearMonthDay := time.Now().Format("20060102")
+	yearMonthDay := now.Format("20060102")
 
 	for _, v := range records {
 		book := v.(map[string]interface{})
-		bookStruct := dbUtil.Book{book["bid"].(string), book["bName"].(string),
-			book["bAuth"].(string), book["desc"].(string), book["cat"].(string),
-			int(book["catId"].(float64)), book["bName"].(string), book["rankCnt"].(string),
-			int(book["rankNum"].(float64)), month, yearMonthDay, now}
-		if len(bookStruct.Desc) > 1000 {
-			bookStruct.Desc = bookStruct.Desc[0:1000]
+		bookStruct := model.Book{BID: book["bid"].(string), Name: book["bName"].(string),
+			Auth: book["bAuth"].(string), BDesc: book["desc"].(string), Cat: book["cat"].(string),
+			CatId: int(book["catId"].(float64)), Cnt: book["cnt"].(string), RankCnt: book["rankCnt"].(string),
+			RankNum: int(book["rankNum"].(float64)), BYearMonth: yearmonth, BYearMonthDay: yearMonthDay, CreatedAt: now}
+		if len(bookStruct.BDesc) > 1000 {
+			bookStruct.BDesc = bookStruct.BDesc[0:1000]
 		}
-		dao.InsertBook(&bookStruct)
+		err = dao.InsertBook(&bookStruct)
+		if err != nil {
+			log.Infof("InsertBook error : %v\n", err)
+			return false
+		}
 	}
+	return true
 }
 
 /*

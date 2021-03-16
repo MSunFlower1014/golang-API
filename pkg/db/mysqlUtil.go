@@ -10,10 +10,10 @@ import (
 
 //数据库配置
 const (
-	userName = "mayantao"
-	password = "Mayantao110"
+	userName = "root"
+	password = "toor"
 	ip       = "120.79.253.180"
-	port     = "3306"
+	port     = "3307"
 	dbName   = "mayantao"
 )
 
@@ -23,7 +23,8 @@ func init() {
 	// 参考 https://github.com/go-sql-driver/mysql#dsn-data-source-name 获取详情
 	//构建连接："用户名:密码@tcp(IP:端口)/数据库?charset=utf8"
 	path := strings.Join([]string{userName, ":", password, "@tcp(", ip, ":", port, ")/", dbName, "?charset=utf8"}, "")
-	db, err := gorm.Open(mysql.Open(path), &gorm.Config{})
+	var err error
+	db, err = gorm.Open(mysql.Open(path), &gorm.Config{})
 	if err != nil {
 		log.Info("init db error %v", err)
 	}

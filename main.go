@@ -26,7 +26,6 @@ func main() {
 
 	c := cron.New()
 
-	_ = c.AddFunc("* * * * * *", cron2.LogInfo)
-
+	_ = c.AddFunc("0 0 0 * * ?", cron2.GetBookRankInfos)
 	c.Start()
 }
