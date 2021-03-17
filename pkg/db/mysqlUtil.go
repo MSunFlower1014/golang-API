@@ -19,10 +19,16 @@ const (
 
 var db *gorm.DB
 
+/*
+error :
+sql: Scan error on column index 2, name “created_at“: unsupported Scan
+需要在链接地址后增加parseTime=true
+https://blog.csdn.net/galoiszhou/article/details/114257575
+*/
 func init() {
 	// 参考 https://github.com/go-sql-driver/mysql#dsn-data-source-name 获取详情
 	//构建连接："用户名:密码@tcp(IP:端口)/数据库?charset=utf8"
-	path := strings.Join([]string{userName, ":", password, "@tcp(", ip, ":", port, ")/", dbName, "?charset=utf8"}, "")
+	path := strings.Join([]string{userName, ":", password, "@tcp(", ip, ":", port, ")/", dbName, "?charset=utf8&parseTime=true"}, "")
 	var err error
 	db, err = gorm.Open(mysql.Open(path), &gorm.Config{})
 	if err != nil {

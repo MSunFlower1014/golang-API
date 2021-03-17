@@ -54,5 +54,13 @@ swag init
 _ "github.com/MSunFlower1014/golang-API/docs"
 
 #访问地址 
-# http://127.0.0.1:8080/swagger/index.html
+# http://127.0.0.1:8000/swagger/index.html
+```
+
+7. go-orm
+```shell script
+go get -u gorm.io/gorm
+go get -u gorm.io/driver/sqlite
+
+#参考地址：https://gorm.io/zh_CN/docs/index.html
 ```

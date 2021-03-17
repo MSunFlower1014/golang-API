@@ -5,6 +5,31 @@
         "license": {}
     },
     "paths": {
+        "/books": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "查询书籍排行信息",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "指定查询日志，格式yyyyMMdd",
+                        "name": "day",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"books\": [books]}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/swagger": {
             "get": {
                 "produces": [

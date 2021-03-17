@@ -2,6 +2,22 @@ info:
   contact: {}
   license: {}
 paths:
+  /books:
+    get:
+      parameters:
+      - description: 指定查询日志，格式yyyyMMdd
+        in: query
+        name: day
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"books": [books]}'
+          schema:
+            type: string
+      summary: 查询书籍排行信息
   /swagger:
     get:
       parameters:
