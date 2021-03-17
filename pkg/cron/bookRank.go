@@ -18,7 +18,7 @@ func GetBookRankInfos() {
 	yearMonthDay := now.Format("200601")
 	flag := book.SaveBookRank(pageNum1, yearMonthDay)
 	flag = book.SaveBookRank(pageNum2, yearMonthDay) && flag
-	flag = book.SaveBookRank(pageNum3, yearMonthDay) && flag
+	//flag = book.SaveBookRank(pageNum3, yearMonthDay) && flag
 	log.Infof("GetBookRankInfos cron result %v", flag)
 
 }

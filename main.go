@@ -5,8 +5,8 @@ import (
 	cron2 "github.com/MSunFlower1014/golang-API/pkg/cron"
 	"github.com/MSunFlower1014/golang-API/pkg/setting"
 	"github.com/MSunFlower1014/golang-API/routers"
+	"github.com/prometheus/common/log"
 	"github.com/robfig/cron"
-	"log"
 	"net/http"
 )
 
@@ -20,12 +20,21 @@ func main() {
 		WriteTimeout:      setting.WriteTimeout,
 		MaxHeaderBytes:    1 << 20,
 	}
+
+	CronInit()
+
 	if err := s.ListenAndServe(); err != nil {
 		log.Fatalf("server start error %v", err)
 	}
 
+}
+
+func CronInit() {
 	c := cron.New()
 
-	_ = c.AddFunc("0 0 0 * * ?", cron2.GetBookRankInfos)
+	err := c.AddFunc("0 1 0 * * *", cron2.GetBookRankInfos)
+	if err != nil {
+		log.Errorf("add cron func error %v", err)
+	}
 	c.Start()
 }
