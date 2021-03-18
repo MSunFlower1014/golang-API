@@ -1,7 +1,6 @@
 package controller
 
 import (
-	_ "github.com/MSunFlower1014/golang-API/docs"
 	"github.com/MSunFlower1014/golang-API/pkg/service"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -27,5 +26,20 @@ func GetBooksByNow(context *gin.Context) {
 		pageSize, _ = strconv.Atoi(pageSizeString)
 	}
 	books := service.ListBooksByYearMonthDay(day, pageSize)
+	context.JSON(http.StatusOK, gin.H{"books": books})
+}
+
+func GetBestRankBook(context *gin.Context) {
+	rankNumString := context.Query("rankNum")
+	limitString := context.Query("limit")
+	//默认获取三天内的排行第一
+	rankNum, limit := 1, 3
+	if len(rankNumString) > 0 {
+		rankNum, _ = strconv.Atoi(rankNumString)
+	}
+	if len(limitString) > 0 {
+		limit, _ = strconv.Atoi(limitString)
+	}
+	books := service.ListFirstRankBookByLimitDays(rankNum, limit)
 	context.JSON(http.StatusOK, gin.H{"books": books})
 }

@@ -4,6 +4,7 @@ import (
 	"github.com/prometheus/common/log"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
+	"gorm.io/gorm/logger"
 	"strings"
 	"time"
 )
@@ -30,7 +31,10 @@ func init() {
 	//构建连接："用户名:密码@tcp(IP:端口)/数据库?charset=utf8"
 	path := strings.Join([]string{userName, ":", password, "@tcp(", ip, ":", port, ")/", dbName, "?charset=utf8&parseTime=true"}, "")
 	var err error
-	db, err = gorm.Open(mysql.Open(path), &gorm.Config{})
+	db, err = gorm.Open(mysql.Open(path), &gorm.Config{
+		//设置日志级别
+		Logger: logger.Default.LogMode(logger.Info),
+	})
 	if err != nil {
 		log.Info("init db error %v", err)
 	}

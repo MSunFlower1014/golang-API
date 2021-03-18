@@ -76,6 +76,10 @@ func ListBooksByYearMonthDay(yearMontDay string, limit int) *[]model.Book {
 	return dao.ListBooksByYearMonthDay(yearMontDay, limit)
 }
 
+func ListFirstRankBookByLimitDays(rankNum, limit int) *[]model.Book {
+	return dao.ListFirstRankBookByLimitDays(rankNum, limit)
+}
+
 /*
 将json中的unicode转为汉字
 */

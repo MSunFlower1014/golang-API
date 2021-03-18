@@ -21,3 +21,13 @@ func ListBooksByYearMonthDay(yearMontDay string, limit int) *[]model.Book {
 	}
 	return &books
 }
+
+func ListFirstRankBookByLimitDays(rankNum, limit int) *[]model.Book {
+	var books []model.Book
+	mysqlDB := db.GetDb()
+	result := mysqlDB.Where("rank_num = ?", rankNum).Order("id desc").Limit(limit).Find(&books)
+	if result.Error != nil {
+		log.Errorf("ListFirstRankBookByLimitDays error : %v", result.Error)
+	}
+	return &books
+}

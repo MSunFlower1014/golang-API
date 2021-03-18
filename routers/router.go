@@ -23,6 +23,8 @@ func InitRouter() *gin.Engine {
 
 	e.GET("books", controller.GetBooksByNow)
 
+	e.GET("best", controller.GetBestRankBook)
+
 	e.GET("swagger", Swagger)
 
 	e.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
