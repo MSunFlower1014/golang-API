@@ -60,9 +60,7 @@ func SaveBookRank(pageNum, yearmonth string) bool {
 			Auth: book["bAuth"].(string), BDesc: book["desc"].(string), Cat: book["cat"].(string),
 			CatId: int(book["catId"].(float64)), Cnt: book["cnt"].(string), RankCnt: book["rankCnt"].(string),
 			RankNum: int(book["rankNum"].(float64)), BYearMonth: yearmonth, BYearMonthDay: yearMonthDay, CreatedAt: now}
-		if len(bookStruct.BDesc) > 1000 {
-			bookStruct.BDesc = bookStruct.BDesc[0:1000]
-		}
+
 		err = dao.InsertBook(&bookStruct)
 		if err != nil {
 			log.Infof("InsertBook error : %v\n", err)

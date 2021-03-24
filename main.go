@@ -2,12 +2,13 @@ package main
 
 import (
 	"fmt"
+	"net/http"
+
 	cron2 "github.com/MSunFlower1014/golang-API/pkg/cron"
 	"github.com/MSunFlower1014/golang-API/pkg/setting"
 	"github.com/MSunFlower1014/golang-API/routers"
 	"github.com/prometheus/common/log"
 	"github.com/robfig/cron"
-	"net/http"
 )
 
 func main() {
@@ -29,6 +30,7 @@ func main() {
 
 }
 
+//初始化定时任务
 func CronInit() {
 	c := cron.New()
 

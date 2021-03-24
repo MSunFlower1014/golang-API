@@ -1,6 +1,9 @@
 package model
 
-import "time"
+import (
+	"gorm.io/gorm"
+	"time"
+)
 
 /*
 CREATE TABLE books
@@ -35,4 +38,11 @@ type Book struct {
 	BYearMonth    string
 	BYearMonthDay string
 	CreatedAt     time.Time
+}
+
+func (book *Book) BeforeCreate(tx *gorm.DB) (err error) {
+	if len(book.BDesc) > 1000 {
+		book.BDesc = book.BDesc[0:999]
+	}
+	return
 }

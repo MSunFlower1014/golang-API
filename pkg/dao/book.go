@@ -31,3 +31,13 @@ func ListFirstRankBookByLimitDays(rankNum, limit int) *[]model.Book {
 	}
 	return &books
 }
+
+func DeleteBookByName(name string) (int64, error) {
+	mysqlDB := db.GetDb()
+	result := mysqlDB.Where("name = ?", "test").Delete(model.Book{})
+	if result.Error != nil {
+		log.Errorf("DeleteBookByName error : %v", result.Error)
+		return 0, result.Error
+	}
+	return result.RowsAffected, nil
+}
