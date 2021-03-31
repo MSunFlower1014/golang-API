@@ -13,7 +13,6 @@ func TestCondBase(t *testing.T) {
 	n := 3
 	done := make(chan int, n)
 	running := make(chan bool, n)
-
 	for i := 0; i < n; i++ {
 		go func(temp int) {
 			c.L.Lock()

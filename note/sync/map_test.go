@@ -68,3 +68,27 @@ func TestSyncMapBase(t *testing.T) {
 		return true
 	})
 }
+
+const (
+
+	// flags
+	iterator     = 1 // there may be an iterator using buckets
+	oldIterator  = 2 // there may be an iterator using oldbuckets
+	hashWriting  = 4 // a goroutine is writing to the map
+	sameSizeGrow = 8 // the current map growth is to a new map of the same size
+
+)
+
+func TestUnitBase(t *testing.T) {
+	var flags uint
+	if flags&hashWriting != 0 {
+		t.Errorf("concurrent map writes")
+	}
+	flags ^= hashWriting
+	t.Logf("flags ^= hashWriting value is %v", flags)
+	if flags&hashWriting == 0 {
+		t.Errorf("concurrent map writes")
+	}
+	flags &^= hashWriting
+	t.Logf("flags &^= hashWriting value is %v", flags)
+}

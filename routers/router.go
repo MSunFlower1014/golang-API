@@ -5,6 +5,7 @@ import (
 	"github.com/MSunFlower1014/golang-API/middleware"
 	"github.com/MSunFlower1014/golang-API/pkg/controller"
 	"github.com/MSunFlower1014/golang-API/pkg/setting"
+	"github.com/gin-contrib/pprof"
 	"github.com/gin-gonic/gin"
 	ginSwagger "github.com/swaggo/gin-swagger"
 	"github.com/swaggo/gin-swagger/swaggerFiles"
@@ -13,6 +14,7 @@ import (
 
 func InitRouter() *gin.Engine {
 	e := gin.New()
+	pprof.Register(e, pprof.DefaultPrefix)
 	e.Use(gin.Logger())
 	e.Use(gin.Recovery())
 	e.Use(middleware.Log())

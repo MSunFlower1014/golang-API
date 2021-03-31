@@ -26,9 +26,12 @@ get:根据高位hash获取桶数组下标，低八位hash通过比较后获取ke
 */
 
 func TestMap(t *testing.T) {
-	m := make(map[string]string)
-	t.Logf("map length is %v", len(m))
+	m := make(map[string]string, 16)
+	t.Logf("map length is %v ", len(m))
 	if m == nil {
 		t.Error("")
 	}
+	m["1"] = ""
+	t.Logf("map length is %v ", len(m))
+	//t.Logf("map cap is %v ", cap(m))
 }
