@@ -1,6 +1,7 @@
 package dao
 
 import (
+	"encoding/json"
 	"testing"
 )
 
@@ -16,4 +17,11 @@ func TestDeleteBookByName(t *testing.T) {
 	//if num==0 || err!=nil{
 	//	t.Error("")
 	//}
+}
+
+func TestListBooksByCreatedTime(t *testing.T) {
+	books := ListBooksByCreatedTime(0, 0, -1)
+	bytes, _ := json.Marshal(books)
+
+	t.Logf("books = %v", string(bytes))
 }
