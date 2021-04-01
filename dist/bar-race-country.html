@@ -44,7 +44,7 @@ var countryColors = {"Australia":"#00008b","Canada":"#f00","China":"#ffde00","Cu
 
 $.when(
     $.getJSON('https://cdn.jsdelivr.net/npm/emoji-flags@1.3.0/data.json'),
-    $.getJSON(ROOT_PATH + '/data/asset/data/life-expectancy-table.json')
+    $.getJSON('https://cdn.jsdelivr.net/gh/apache/echarts-website@asf-site/examples/data/asset/data/life-expectancy-table.json')
 ).done(function (res0, res1) {
     var flags = res0[0];
     var data = res1[0];
