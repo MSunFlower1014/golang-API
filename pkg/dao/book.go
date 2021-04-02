@@ -48,7 +48,7 @@ func ListBooksByCreatedTime(year, month, day int) *[]model.Book {
 	mysqlDB := db.GetDb()
 	now := time.Now()
 	now = now.AddDate(year, month, day)
-	result := mysqlDB.Where("created_at > ?", now).Find(&books)
+	result := mysqlDB.Where("created_at > ?", now).Order("b_year_month_day,rank_num").Find(&books)
 	if result.Error != nil {
 		log.Errorf("ListFirstRankBookByLimitDays error : %v", result.Error)
 	}

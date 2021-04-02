@@ -78,6 +78,24 @@ func ListFirstRankBookByLimitDays(rankNum, limit int) *[]model.Book {
 	return dao.ListFirstRankBookByLimitDays(rankNum, limit)
 }
 
+func ListBooksUnique(year, month, day int) *[]model.Book {
+	books := dao.ListBooksByCreatedTime(year, month, day)
+	filter := make(map[string]bool)
+	var result = make([]model.Book, 0)
+	for _, book := range *books {
+		if filter[book.BID] {
+			continue
+		}
+		result = append(result, book)
+		filter[book.BID] = true
+	}
+	return &result
+}
+
+func ListBooksByCreatedTime(year, month, day int) *[]model.Book {
+	return dao.ListBooksByCreatedTime(year, month, day)
+}
+
 /*
 将json中的unicode转为汉字
 */
