@@ -23,7 +23,6 @@ func main() {
 	}
 
 	CronInit()
-
 	if err := s.ListenAndServe(); err != nil {
 		log.Fatalf("server start error %v", err)
 	}

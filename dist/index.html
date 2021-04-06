@@ -70,7 +70,7 @@ $.when(
         grid: {
             top: 10,
             bottom: 30,
-            left: 150,
+            left: 200,
             right: 80
         },
         xAxis: {
@@ -96,11 +96,12 @@ $.when(
                     fontSize: 14
                 },
                 formatter: function (value) {
-                    return value + '{flag|' + getFlag(value) + '}';
+
+                    return  value + '\n{flag|' + getFlag(value) + '}'
                 },
                 rich: {
                     flag: {
-                        fontSize: 25,
+                        fontSize: 20,
                         padding: 5
                     }
                 }
