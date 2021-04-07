@@ -14,7 +14,9 @@ import (
 
 func InitRouter() *gin.Engine {
 	e := gin.New()
+	//gin 设置 pprof
 	pprof.Register(e, pprof.DefaultPrefix)
+
 	e.Use(gin.Logger())
 	e.Use(gin.Recovery())
 	e.Use(middleware.Log())
