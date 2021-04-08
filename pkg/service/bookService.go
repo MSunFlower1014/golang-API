@@ -79,7 +79,7 @@ func ListFirstRankBookByLimitDays(rankNum, limit int) *[]model.Book {
 }
 
 func ListBooksUnique(year, month, day int) *[]model.Book {
-	books := dao.ListBooksByCreatedTime(year, month, day)
+	books := dao.ListBooksByGapNowTime(year, month, day)
 	filter := make(map[string]bool)
 	var result = make([]model.Book, 0)
 	for _, book := range *books {
@@ -92,8 +92,26 @@ func ListBooksUnique(year, month, day int) *[]model.Book {
 	return &result
 }
 
-func ListBooksByCreatedTime(year, month, day int) *[]model.Book {
-	return dao.ListBooksByCreatedTime(year, month, day)
+func ListBooksByGapNowTime(year, month, day int) *[]model.Book {
+	return dao.ListBooksByGapNowTime(year, month, day)
+}
+
+func ListBooksByYearMonth(year, month int) *[]model.Book {
+	return dao.ListBooksByYearMonth(year, month)
+}
+
+func ListBooksByYearMonthUnique(year, month int) *[]model.Book {
+	books := dao.ListBooksByYearMonth(year, month)
+	filter := make(map[string]bool)
+	var result = make([]model.Book, 0)
+	for _, book := range *books {
+		if filter[book.BID] {
+			continue
+		}
+		result = append(result, book)
+		filter[book.BID] = true
+	}
+	return &result
 }
 
 /*

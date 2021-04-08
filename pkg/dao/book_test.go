@@ -20,7 +20,7 @@ func TestDeleteBookByName(t *testing.T) {
 }
 
 func TestListBooksByCreatedTime(t *testing.T) {
-	books := ListBooksByCreatedTime(0, 0, -1)
+	books := ListBooksByGapNowTime(0, 0, -1)
 	bytes, _ := json.Marshal(books)
 
 	t.Logf("books = %v", string(bytes))

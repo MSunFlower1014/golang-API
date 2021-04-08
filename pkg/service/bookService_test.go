@@ -42,7 +42,7 @@ func TestListBooksUnique(t *testing.T) {
 }
 
 func TestListBooksByCreatedTime(t *testing.T) {
-	books := ListBooksByCreatedTime(0, -2, 0)
+	books := ListBooksByGapNowTime(0, -2, 0)
 	t.Logf("books size is %v", len(*books))
 	result := make([][]string, 1)
 
@@ -84,4 +84,14 @@ func TestListBooksByCreatedTime(t *testing.T) {
 		t.Fatalf("create json file  error : %v", err)
 	}
 
+}
+
+func TestListBooksByYearMonth(t *testing.T) {
+	books := ListBooksByYearMonth(2021, 3)
+
+	for _, v := range *books {
+		if v.BYearMonth != "202103" {
+			t.Errorf("book info err , BYearMonth is not 202103")
+		}
+	}
 }

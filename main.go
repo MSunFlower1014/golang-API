@@ -35,7 +35,12 @@ func CronInit() {
 
 	err := c.AddFunc("0 1 0 * * *", cron2.GetBookRankInfos)
 	if err != nil {
-		log.Errorf("add cron func error %v", err)
+		log.Errorf("add cron GetBookRankInfos error %v", err)
+	}
+
+	err = c.AddFunc("0 1 0 1 * *", cron2.CreateBookJsonFile)
+	if err != nil {
+		log.Errorf("add cron CreateBookJsonFile error %v", err)
 	}
 	c.Start()
 }

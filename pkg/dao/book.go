@@ -43,12 +43,25 @@ func DeleteBookByName(name string) (int64, error) {
 	return result.RowsAffected, nil
 }
 
-func ListBooksByCreatedTime(year, month, day int) *[]model.Book {
+func ListBooksByGapNowTime(year, month, day int) *[]model.Book {
 	var books []model.Book
 	mysqlDB := db.GetDb()
 	now := time.Now()
 	now = now.AddDate(year, month, day)
 	result := mysqlDB.Where("created_at > ?", now).Order("b_year_month_day,rank_num").Find(&books)
+	if result.Error != nil {
+		log.Errorf("ListFirstRankBookByLimitDays error : %v", result.Error)
+	}
+	return &books
+}
+
+func ListBooksByYearMonth(year, month int) *[]model.Book {
+	var books []model.Book
+	mysqlDB := db.GetDb()
+	now := time.Date(year, time.Month(month), 1, 0, 0, 0, 0, time.Local)
+
+	end := now.AddDate(0, 1, -1)
+	result := mysqlDB.Where("created_at > ?", now).Where("created_at < ?", end).Order("b_year_month_day,rank_num").Find(&books)
 	if result.Error != nil {
 		log.Errorf("ListFirstRankBookByLimitDays error : %v", result.Error)
 	}
