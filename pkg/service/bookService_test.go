@@ -5,9 +5,11 @@ import (
 	"io/ioutil"
 	"os"
 	"path"
+	"runtime/pprof"
 	"strconv"
 	"strings"
 	"testing"
+	"time"
 )
 
 func TestListBooksUnique(t *testing.T) {
@@ -87,6 +89,25 @@ func TestListBooksByCreatedTime(t *testing.T) {
 }
 
 func TestListBooksByYearMonth(t *testing.T) {
+	//开启 pprof 性能监控
+	cpuf, err := os.Create("cpu_profile")
+	if err != nil {
+		t.Fatal(err)
+	}
+	pprof.StartCPUProfile(cpuf)
+	defer pprof.StopCPUProfile()
+
+	time.Sleep(time.Second * 3)
+	memf, err := os.Create("mem_profile")
+	if err != nil {
+		t.Fatal("could not create memory profile: ", err)
+	}
+	if err := pprof.WriteHeapProfile(memf); err != nil {
+		t.Fatal("could not write memory profile: ", err)
+	}
+
+	memf.Close()
+
 	books := ListBooksByYearMonth(2021, 3)
 
 	for _, v := range *books {
