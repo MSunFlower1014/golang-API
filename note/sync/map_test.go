@@ -16,6 +16,8 @@ map结构体中包含两个原生得字典 - readOnly 和 dirty
 5. 优先从read读取、更新、删除，因为对read的读取不需要锁
 
 amended为true时表示一些key存在于dirty但是不存在于read中，代表read部分过时
+
+当 dirty 为 nil 的时候，read 就代表 map 所有的数据；当 dirty 不为 nil 的时候，dirty 才代表 map 所有的数据。
 */
 func TestSyncMapBase(t *testing.T) {
 	k := "1"
